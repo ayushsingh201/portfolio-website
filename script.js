@@ -139,3 +139,32 @@ document.querySelectorAll(".project-card").forEach(card => {
       imgs[index].classList.add("active");
     }, 2000);
   });
+
+  if (window.innerWidth < 768) {
+  document.querySelectorAll(".project-card").forEach(card => {
+    card.onmousemove = null;
+    card.onmouseleave = null;
+  });
+}
+/* ===== HAMBURGER MENU FIX ===== */
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("menu-toggle");
+  const links = document.getElementById("nav-links");
+
+  if (!toggle || !links) {
+    console.error("Navbar elements not found");
+    return;
+  }
+
+  toggle.addEventListener("click", () => {
+    links.classList.toggle("active");
+  });
+
+  // Auto-close on click
+  links.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      links.classList.remove("active");
+    });
+  });
+});
+
