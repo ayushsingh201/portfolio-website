@@ -1,0 +1,523 @@
+
+ /* ---------------- LOADER STYLES ---------------- */
+#loader-container {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    background: radial-gradient(circle at top, #111 0%, #000 70%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+    color: white;
+}
+
+.loader-wrapper {
+    perspective: 1000px;
+    text-align: center;
+}
+
+.portfolio-text {
+    font-size: clamp(40px, 10vw, 120px);
+    font-weight: 800;
+    letter-spacing: 8px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out;
+    background: linear-gradient(180deg, #ffffff, #888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 5px 10px rgba(0,0,0,0.6), 0 20px 40px rgba(0,0,0,0.8);
+}
+
+.portfolio-text::before, .portfolio-text::after {
+    content: "PORTFOLIO";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+.portfolio-text::before { 
+  color: rgba(255,255,255,0.15); 
+  transform: translateZ(-40px); }
+
+.portfolio-text::after { 
+  color: rgba(0,0,0,0.8);
+   transform: translateZ(-80px); }
+
+.progress { 
+  margin-top: 30px; 
+  font-size: 18px; 
+  letter-spacing: 2px;
+   opacity: 0.85; }
+
+.progress-bar {
+   width: 250px; 
+   height: 4px; 
+   background: rgba(255,255,255,0.15); 
+   border-radius: 10px; 
+   margin: 15px auto 0; 
+   overflow: hidden; }
+
+.progress-fill {
+   width: 0%; height:
+    100%; background: #ff7a00; 
+    transition: width 0.1s linear; }
+ 
+/* ---------------- RESET ---------------- */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+html{
+  scroll-behavior:smooth;
+}
+body{
+  background:#0b0b0b;
+  color:white;
+  overflow-x:hidden;
+  cursor:none;
+}
+#main-content { display: none; } /* Hidden until loaded */
+
+/* ---------------- CUSTOM CURSOR ---------------- */
+.cursor{
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  background:#ff7a00;
+  position:fixed;
+  pointer-events:none;
+  z-index:999;
+  box-shadow:0 0 15px #ff7a00;
+}
+
+/* ---------------- NAVBAR ---------------- */
+nav{
+  position:sticky;
+  top:0;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(10px);
+  padding:15px 8%;
+  display:flex;
+  justify-content:space-between;
+  z-index:10;
+}
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+  font-weight:500;
+}
+nav a:hover{
+  color:#ff7a00;
+}
+
+/* ---------------- WAVE BACKGROUND ---------------- */
+.wave-bg{
+  position:fixed;
+  top:-30%;
+  left:0;
+  width:100%;
+  height:140vh;
+  background:#1f1f1f;
+  clip-path:ellipse(120% 60% at 50% 0%);
+  z-index:-1;
+  transition:transform 0.1s linear;
+}
+
+/* ---------------- SECTIONS ---------------- */
+section{
+  padding:90px 8%;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s ease;
+}
+section.show{
+  opacity:1;
+  transform:translateY(0);
+}
+h2{
+  font-size:2.2rem;
+  margin-bottom:40px;
+}
+h2::after{
+  content:'';
+  display:block;
+  width:60px;
+  height:4px;
+  background:#ff7a00;
+  margin-top:10px;
+}
+
+/* ---------------- HERO ---------------- */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+}
+.hero h1{
+  font-size:3rem;
+  color:#ff7a00;
+}
+.hero h1:hover{
+  transform:translateY(-5px);
+}
+.typing{
+  font-size:1.2rem;
+  margin-top:15px;
+}
+.profile{
+  width:350px;
+  height:350px;
+  border-radius:50%;
+  border:3px solid #ff7a00;
+  box-shadow:0 0 25px #ff7a00;
+  object-fit:cover;
+}
+/* -------- HERO NAME LETTER POP ANIMATION -------- */
+.hero h1 span{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(20px) scale(0.8);
+  animation:popIn 0.6s ease forwards;
+}
+
+@keyframes popIn{
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* ---------------- GLASS CARD ---------------- */
+.card{
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(12px);
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 0 20px rgba(255,122,0,0.4);
+  margin-bottom:20px;
+}
+
+/* ---------------- SKILLS ---------------- */
+.skills{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:25px;
+}
+.skill{
+  height:120px;
+  perspective:1000px;
+}
+.skill-inner{
+  width:100%;
+  height:100%;
+  transition:0.6s;
+  transform-style:preserve-3d;
+}
+.skill:hover .skill-inner{
+  transform:rotateY(180deg);
+}
+.skill-front,.skill-back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#ff7a00;
+  color:black;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  font-weight:bold;
+  backface-visibility:hidden;
+  box-shadow:0 0 15px #ff7a00;
+   flex-direction:column;
+  text-align:center;
+}
+.skill-back{
+  transform:rotateY(180deg);
+  background:#ff9a33;
+}
+.skill-front i{
+  font-size:2.4rem;
+  margin-bottom:8px;
+}
+/* Skill icon colors */
+.skill-front i{
+  text-shadow: 0 0 12px currentColor;
+  font-size:2rem;
+  margin-bottom:6px;
+}
+
+.fa-html5{ color:#e34c26; }      /* HTML */
+.fa-css3-alt{ color:#264de4; }   /* CSS */
+.fa-js{ color:#f7df1e; }         /* JavaScript */
+.fa-git-alt{ color:#f05032; }    /* Git */
+.fa-python{ color:#3776ab; }     /* Python */
+.fa-java{ color:#f89820; }       /* Java */
+.fa-diagram-project{ color:#00ffcc; } /* DSA */
+.fa-c{ color:#00599c; }          /* C / C++ */
+
+
+/* ---------------- PROJECTS ---------------- */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
+.project-card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 30px;
+  perspective: 1200px; /* stronger 3D perspective */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+/* Make inner elements pop out slightly */
+.project-inner * {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+/* Hover scale */
+.project-card:hover .project-inner {
+  scale: 1.03;
+}
+
+/* Optional: shadow gradient for realistic light */
+.project-card::before {
+  content: "";
+  position: absolute;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  border-radius: 20px;
+  pointer-events:none;
+  background: radial-gradient(circle at center, rgba(255,122,0,0.15), transparent 70%);
+  transition: background 0.3s ease;
+}
+.project-img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  background: #000;
+  transition: transform 0.4s ease;
+}
+.project-img{
+  transition:transform 0.4s ease;
+}
+.project-img:hover{
+  transform:scale(1.05);
+}
+.project-features{
+  font-size:0.85rem;
+  color:#ddd;
+  padding-left:18px;
+  margin:8px 0;
+}
+
+.project-links a{
+  display:inline-block;
+  margin:6px 6px 0 0;
+  padding:6px 14px;
+  background:#ff7a00;
+  color:black;
+  border-radius:18px;
+  text-decoration:none;
+  font-size:0.8rem;
+  font-weight:600;
+}
+.project-slider{
+  position:relative;
+  height:180px;
+  overflow:hidden;
+  border-radius:12px;
+  margin-bottom:12px;
+}
+.project-slider img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  position:absolute;
+  top:0;
+  left:0;
+  opacity:0;
+  transition:opacity 0.5s ease;
+}
+.project-slider img.active{
+  opacity:1;
+}
+
+.tech-tags{
+  margin:8px 0 12px;
+}
+
+.tech-tags span{
+  display:inline-block;
+  font-size:0.7rem;
+  padding:4px 10px;
+  background:#222;
+  border-radius:12px;
+  margin:0 6px 6px 0;
+  color:#ff7a00;
+  border:1px solid #ff7a00;
+}
+
+/* ---------------- CERTIFICATES ---------------- */
+.view-btn{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 16px;
+  border-radius:20px;
+  background:#ff7a00;
+  color:black;
+  text-decoration:none;
+  font-size:0.85rem;
+  font-weight:600;
+  transition:0.3s ease;
+}
+
+.view-btn:hover{
+  background:#ff9a33;
+  box-shadow:0 0 15px #ff7a00;
+}
+
+
+
+.certificates{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+
+.certificate-card{
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(12px);
+  padding:15px;
+  border-radius:16px;
+  box-shadow:0 0 20px rgba(255,122,0,0.4);
+  text-align:center;
+  transition:0.8s ease;
+}
+.certificate-card:hover{
+  background:#ff7a00;
+  color:black;
+  box-shadow:0 0 20px #ff7a00;
+  transform:translateY(-5px);
+}
+
+.certificate-card img{
+  width:100%;
+  height:160px;
+  object-fit:contain;
+  border-radius:12px;
+  margin-bottom:12px;
+}
+
+.certificate-card h3{
+  font-size:1rem;
+  margin-bottom:6px;
+}
+
+.certificate-card p{
+  font-size:0.85rem;
+  color:#ccc;
+}
+
+
+
+/* ---------------- CONTACT ---------------- */
+.contact-icons{
+  display:flex;
+  justify-content:center;
+  gap:60px;
+}
+
+.contact-icons a{
+  width:55px;
+  height:55px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  color:#ff7a00;
+  font-size:1.5rem;
+  transition:0.3s ease;
+}
+
+.contact-icons a:hover{
+  background:#ff7a00;
+  color:black;
+  box-shadow:0 0 20px #ff7a00;
+  transform:translateY(-5px);
+}
+
+
+/* ---------------- FOOTER ---------------- */
+footer{
+  padding:30px;
+  text-align:center;
+  background:black;
+  color:#aaa;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media(max-width:768px){
+  .hero{
+    flex-direction:column-reverse;
+    text-align:center;
+  }
+}
+/* Certificates section should be visible */
+#certificates{
+  opacity:1;
+  transform:none;
+}
+
+
+/* -------- FALLING LANGUAGE ICON RAIN -------- */
+.icon-rain{
+  position:fixed;
+  top:0;
+  left:0;
+  width:150%;
+  height:150%;
+  pointer-events:none;
+  z-index:-1;
+  overflow:hidden;
+}
+
+.rain-icon{
+  position:absolute;
+  top:-50px;
+  color:#ff7a00;
+  opacity:0.30;
+  animation:rain-fall linear forwards;
+  filter:drop-shadow(0 0 6px #ff7a00);
+}
+
+@keyframes rain-fall{
+  from{
+    transform:translateY(0) rotate(0deg);
+  }
+  to{
+    transform:translateY(120vh) rotate(360deg);
+  }
+}
