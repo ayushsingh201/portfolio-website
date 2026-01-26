@@ -564,7 +564,7 @@ footer{
     flex-direction:column-reverse;
     text-align:center;
       min-height: auto;
-    padding-top: 60px;
+    padding-top: 90px;
     gap: 25px;
   }
   .hero h1 {
@@ -578,6 +578,10 @@ footer{
   .profile {
     width: 220px;
     height: 220px;
+    border: 3px solid #ff7a00;
+    box-shadow:
+      0 0 20px #ff7a00,
+      0 0 40px rgba(255,122,0,0.6);
   }
   body {
     cursor: auto;
